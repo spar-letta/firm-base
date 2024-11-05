@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.14.xsd">
+
+    <changeSet id="202410281120" author="enock">
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS farmer_v1;
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="0174e36d7021-1" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="farmer_categories" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="farmer_categories" schemaName="farmer_v1">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="category" type="varchar(255)"/>
+            <column name="land_size" type="bigint" />
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="farmer_categories"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_farmer_categories"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="farmer_categories"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_farmer_categories"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-2" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="contacts" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="contacts" schemaName="farmer_v1">
+            <column name="contact_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="postal_address" type="varchar(255)"/>
+            <column name="postal_code" type="varchar(255)"/>
+            <column name="email_address" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(255)"/>
+            <column name="location" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="contacts"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_farmer_contacts"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="contacts"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_farmer_contacts"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-3" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="counties" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="counties" schemaName="farmer_v1">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="county_name" type="varchar(255)"/>
+            <column name="county_code" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="counties"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_farmer_counties"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="counties"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_farmer_counties"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-4" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="sub_counties" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="sub_counties" schemaName="farmer_v1">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="sub_county_name" type="varchar(255)"/>
+            <column name="county_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="sub_counties"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_farmer_sub_counties"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="sub_counties"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_farmer_sub_counties"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="sub_counties"
+                                 baseColumnNames="county_id"
+                                 constraintName="county_id_table_farmer_sub_counties"
+                                 referencedTableName="counties" referencedColumnNames="id"
+                                 referencedTableSchemaName="farmer_v1"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-5" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="farmers" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="farmers" schemaName="farmer_v1">
+            <column name="farmer_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="other_name" type="varchar(255)"/>
+            <column name="join_date" type="date"/>
+            <column name="county_id" type="bigint"/>
+            <column name="sub_county_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="farmers"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_farmer_sub_farmers"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="farmers"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_farmers"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="farmers"
+                                 baseColumnNames="county_id"
+                                 constraintName="county_id_table_farmers"
+                                 referencedTableName="counties" referencedColumnNames="id"
+                                 referencedTableSchemaName="farmer_v1"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="farmers"
+                                 baseColumnNames="sub_county_id"
+                                 constraintName="sub_county_id_table_farmers"
+                                 referencedTableName="sub_counties" referencedColumnNames="id"
+                                 referencedTableSchemaName="farmer_v1"/>
+
+    </changeSet>
+
+    <changeSet id="0174e36d7021-6" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="farmer_v1" tableName="categories"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="farmer_v1" tableName="categories">
+            <column name="farmer_id" type="BIGINT"/>
+            <column name="category_id" type="BIGINT"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="farmer_id" baseTableName="categories"
+                                 baseTableSchemaName="farmer_v1"
+                                 constraintName="farmer_id_table_categories"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="farmer_id" referencedTableName="farmers"
+                                 referencedTableSchemaName="farmer_v1"/>
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="categories"
+                                 baseTableSchemaName="farmer_v1"
+                                 constraintName="category_id_table_categories"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="farmer_categories"
+                                 referencedTableSchemaName="farmer_v1"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-7" author="enock">
+        <preConditions>
+            <not>
+                <columnExists tableName="farmers" columnName="national_id" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="farmers" schemaName="farmer_v1">
+            <column name="national_id" type="varchar(250)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-8" author="enock">
+        <preConditions>
+            <not>
+                <columnExists tableName="farmers" columnName="farmer_land_size" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="farmers" schemaName="farmer_v1">
+            <column name="farmer_land_size" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-9" author="enock">
+        <preConditions>
+            <not>
+                <columnExists tableName="farmers" columnName="institution_id" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="farmers" schemaName="farmer_v1">
+            <column name="institution_id" type="bigint"/>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="institution_id" baseTableName="farmers"
+                                 baseTableSchemaName="farmer_v1"
+                                 constraintName="institution_id_table_farmers"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="institutions"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-10" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="vouchers" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="vouchers" schemaName="farmer_v1">
+            <column name="voucher_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="voucher_name" type="varchar(255)"/>
+            <column name="voucher_number" type="varchar(255)"/>
+            <column name="number_of_farmers" type="integer"/>
+            <column name="expiry_date" type="date"/>
+            <column name="collection_centre" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="vouchers"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_vouchers"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="vouchers"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_vouchers"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-11" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="farmer_v1" tableName="farmers_vouchers"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="farmer_v1" tableName="farmers_vouchers">
+            <column name="fk_voucher_id" type="bigint"/>
+            <column name="fk_farmer_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="fk_voucher_id" baseTableName="farmers_vouchers"
+                                 baseTableSchemaName="farmer_v1"
+                                 constraintName="fk_voucher_id_table_farmers_vouchers"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="voucher_id" referencedTableName="vouchers"
+                                 referencedTableSchemaName="farmer_v1"/>
+        <addForeignKeyConstraint baseColumnNames="fk_farmer_id" baseTableName="farmers_vouchers"
+                                 baseTableSchemaName="farmer_v1"
+                                 constraintName="fk_farmer_id_table_farmers_vouchers"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="farmer_id" referencedTableName="farmers"
+                                 referencedTableSchemaName="farmer_v1"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-12" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="voucher_items" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="voucher_items" schemaName="farmer_v1">
+            <column name="voucher_item_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="quantity" type="integer"/>
+            <column name="voucher_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="voucher_items"
+                                 baseColumnNames="voucher_id"
+                                 constraintName="voucher_id_table_voucher_items"
+                                 referencedTableName="vouchers" referencedColumnNames="voucher_id"
+                                 referencedTableSchemaName="farmer_v1"/>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-13" author="enock">
+        <preConditions>
+            <not>
+                <columnExists tableName="voucher_items" columnName="description" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="voucher_items" schemaName="farmer_v1">
+            <column name="description" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-14" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="voucher_counters" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="farmer_v1" tableName="voucher_counters">
+            <column autoIncrement="true" name="counter_id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="counter_version" type="bigint"/>
+            <column name="counter_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="counter_current" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0174e36d7021-15" author="enock">
+        <preConditions>
+            <not>
+                <columnExists tableName="contacts" columnName="physical_address_id" schemaName="farmer_v1"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="contacts" schemaName="farmer_v1">
+            <column name="physical_address_id" type="bigint"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableSchemaName="farmer_v1" baseTableName="contacts"
+                                 baseColumnNames="physical_address_id"
+                                 constraintName="physical_address_id_table_contacts"
+                                 referencedTableName="farmers" referencedColumnNames="farmer_id"
+                                 referencedTableSchemaName="farmer_v1"/>
+    </changeSet>
+
+</databaseChangeLog>

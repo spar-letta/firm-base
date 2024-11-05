@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.14.xsd">
+
+    <changeSet id="78bc3cf4" author="enock">
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS product_v1;
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="78bc3cf-2" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="products" schemaName="product_v1"/>
+            </not>
+        </preConditions>
+        <createTable tableName="products" schemaName="product_v1">
+            <column name="product_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="product_name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="price" type="numeric(11,2)"/>
+            <column name="quantity" type="bigint" />
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="product_v1" baseTableName="products"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_products"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="product_v1" baseTableName="products"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_products"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+
+</databaseChangeLog>

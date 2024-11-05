@@ -1,0 +1,55 @@
+package com.firm_base.farmer_service;
+
+import com.firm_base.farmer_service.configs.WireMockConfig;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import io.restassured.RestAssured;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.io.IOException;
+import java.util.UUID;
+
+import static com.firm_base.farmer_service.mock.ProductServicesMock.setupMockGetProduct;
+
+@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
+@ContextConfiguration(classes = {WireMockConfig.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.allow-bean-definition-overriding=true")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@EnableConfigurationProperties
+public abstract class FarmerServiceApplicationTests {
+
+	public String accessToken = "eyJraWQiOiJjMTc4Mzg4MC1kYTlmLTQyZTktYTBkZS01ZGE3YmQzOWMxMTQiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJicm93c2VyLWNsaWVudCIsImF1ZCI6ImJyb3dzZXItY2xpZW50IiwibmJmIjoxNzMwNzEyMDY5LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgxIiwidXNlclB1YmxpY0lkIjoiZGQ5ZDQzMWMtOWYzMC00NjVlLTg1NDYtNzBlY2MzMTI3NjUwIiwiZXhwIjoxNzMwNzk4NDY5LCJpYXQiOjE3MzA3MTIwNjksImp0aSI6IjdlNmM3YTJjLTVmZDEtNDRiZi04MGU1LTMyMTE4YzRlMGJlZiIsImF1dGhvcml0aWVzIjpbIkNSRUFURV9GQVJNRVJfQ0FURUdPUlkiLCJVUERBVEVfTUVNQkVSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1ZPVUNIRVIiLCJDUkVBVEVfSU5TVElUVVRJT04iLCJSRUFEX0lOU1RJVFVUSU9OIiwiQ1JFQVRFX1BSSVZJTEVHRSIsIlJFQURfRkFSTUVSX0NBVEVHT1JZIiwiQ1JFQVRFX0JPT0tJTkciLCJDUkVBVEVfVk9VQ0hFUiIsIlJFQURfRkFSTUVSUyIsIkNSRUFURV9NRU1CRVIiLCJSRUFEX1BSSVZJTEVHRVMiLCJSRUFEX0FVRElUX1JFQ09SRFMiLCJSRUFEX01FTUJFUiIsIkFTU0lHTl9QUklWSUxFR0VfVE9fUk9MRSIsIlJFQURfUFJPRFVDVCIsIkRFTEVURV9NRU1CRVIiLCJSRUFEX1JPTEVTIiwiQ1JFQVRFX1BST0RVQ1QiLCJVUERBVEVfVVNFUiIsIlJFQURfUFJPRklMRSIsIlJFQURfVVNFUiIsIkNSRUFURV9DT05UQUNUIiwiUkVBRF9ERVBBUlRNRU5UUyIsIkNSRUFURV9JTlNUSVRVVElPTl9VU0VSIiwiQ1JFQVRFX1JPTEUiLCJSRUFEX0ZBUk1FUiIsIkNSRUFURV9GQVJNRVIiLCJSRUFEX0NPVU5USUVTIiwiUkVBRF9CT09LSU5HUyJdLCJ1c2VybmFtZSI6ImphdmVub2NrQWRtaW4ifQ.eIa8UEYToXKmAyJTsVRQbpef8xZGUbg4TPkU37TseDnThlp8hlTLp6r-jUjvlf-P1ikyey_ikNVzvbq4LhJRFOqAxOUZz2IRvc2mRxviY1tKA_q-NMxhQBh8ZlrfkFjBDqXxdoh8KZMm3c5rG8Icvxy3_nFa4Y_b5pxQD03AfHR2SKmBj6MbTVuZYN8TCT8aETW3h1z2bcqaHlbWREUTMyfrme-QQMZyhvrt9AVV45GKANJbeC7tHZjrm-ZMQ_vlvrIuH4rlRkbZHFc6snty4bGXTyihs7r_r_xe330z-qSfVNbr3mN1r7Ai-89mdRTOdEN38fo7L4WInBvGwOxHTw";
+
+	@Value("${local.server.port}")
+	public int port;
+
+	@Autowired
+	private WireMockServer mockProductService;
+
+	@Autowired
+	private WebApplicationContext context;
+
+	public MockMvc mvc;
+
+	@Before
+	public void setUpGlobal() throws IOException {
+		RestAssured.port = port;
+		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+		setupMockGetProduct(mockProductService, UUID.fromString("47062309-85e9-457e-a039-d5a1083b930d"));
+	}
+
+}

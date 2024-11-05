@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.14.xsd">
+
+    <changeSet id="ac3976ff-4d9e-1" author="enock">
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS core;
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="ac3976ff-4d9e-2" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users" schemaName="core"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users" schemaName="core">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="other_name" type="varchar(255)"/>
+            <column name="user_name" type="varchar(250)">
+                <constraints unique="true" uniqueConstraintName="unique_username_table_users" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)"/>
+            <column name="contact_email" type="varchar(255)"/>
+            <column name="contact_phone_number" type="varchar(255)"/>
+            <column name="verified_email" type="BOOLEAN"/>
+            <column name="verified_phone_number" type="BOOLEAN"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="change_password" type="BOOLEAN"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="users"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_users"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="users"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_users"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="ac3976ff-4d9e-3" author="enock">
+        <preConditions>
+            <not>
+                <tableExists tableName="roles" schemaName="core"/>
+            </not>
+        </preConditions>
+        <createTable tableName="roles" schemaName="core">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="BIGINT"/>
+            <column name="modified_by_id" type="BIGINT"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="roles"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_roles"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="roles"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_roles"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet author="enock" id="ac3976ff-4d9e-4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="core" tableName="user_roles"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="core" tableName="user_roles">
+            <column name="user_id_fk" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id_fk" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="user_id_fk" baseTableName="user_roles"
+                                 baseTableSchemaName="core" constraintName="user_id_fk_table_user_roles"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseColumnNames="role_id_fk" baseTableName="user_roles"
+                                 baseTableSchemaName="core" constraintName="role_id_fk_table_user_roles"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="roles"
+                                 referencedTableSchemaName="core"/>
+
+    </changeSet>
+
+    <changeSet id="ac3976ff-4d9e-5" author="enock">
+        <preConditions>
+            <not>
+                <tableExists tableName="privileges" schemaName="core"/>
+            </not>
+        </preConditions>
+        <createTable tableName="privileges" schemaName="core">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="role_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="privileges"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_privileges"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="privileges"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_privileges"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="privileges"
+                                 baseTableSchemaName="core" constraintName="role_id_table_privileges"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="roles"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet author="enock" id="ac3976ff-4d9e-6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="core" tableName="role_privileges"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="core" tableName="role_privileges">
+            <column name="role_id_fk" type="BIGINT"/>
+            <column name="privilege_id_fk" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="role_privileges" baseColumnNames="role_id_fk"
+                                 constraintName="role_id_fk_table_role_privileges"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="role_privileges"
+                                 baseColumnNames="privilege_id_fk"
+                                 constraintName="privilege_id_fk_table_role_privileges"
+                                 referencedTableName="privileges" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="ac3976ff-4d9e-7" author="enock">
+        <preConditions>
+            <not>
+                <tableExists tableName="institutions" schemaName="core"/>
+            </not>
+        </preConditions>
+        <createTable tableName="institutions" schemaName="core">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="public_id" type="uuid"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="date_modified" type="timestamp"/>
+            <column name="created_by_id" type="bigint"/>
+            <column name="modified_by_id" type="bigint"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="institution_name" type="varchar(255)"/>
+            <column name="institution_phone_number" type="varchar(255)"/>
+            <column name="email_address" type="varchar(255)"/>
+            <column name="institution_website" type="varchar(255)"/>
+            <column name="institution_registration_number" type="varchar(255)"/>
+            <column name="institution_deactivated" type="boolean" defaultValueBoolean="false"/>
+            <column name="institution_unique_code" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="institutions"
+                                 baseColumnNames="created_by_id"
+                                 constraintName="created_by_id_table_institutions"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="institutions"
+                                 baseColumnNames="modified_by_id"
+                                 constraintName="modified_by_id_table_institutions"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+    <changeSet id="ac3976ff-4d9e-8" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="counters" schemaName="core"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="core" tableName="counters">
+            <column autoIncrement="true" name="counter_id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="counter_version" type="bigint"/>
+            <column name="counter_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="counter_current" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="ac3976ff-4d9e-9" author="enock">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="roles" columnName="role_institution_id_fk" schemaName="core"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="roles" schemaName="core">
+            <column name="role_institution_id_fk" type="bigint"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableSchemaName="core" baseTableName="roles"
+                                 baseColumnNames="role_institution_id_fk"
+                                 constraintName="role_institution_id_fk_table_roles"
+                                 referencedTableName="institutions" referencedColumnNames="id"
+                                 referencedTableSchemaName="core"/>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,48 @@
+code:name:subCountyNames
+1:Mombasa:Changamwe, Jomvu, Kisauni, Likoni, Mvita, Nyali
+2:Kwale:Kinango, Lunga Lunga, Msambweni, Matuga
+3:Kilifi:Ganze, Kaloleni, Kilifi North, Kilifi South, Magarini, Malindi, Rabai
+4:Tana River:Bura, Galole, Garsen
+5:Lamu:Lamu East, Lamu West
+6:Taita-Taveta:Mwatate, Taveta, Voi, Wundanyi
+7:Garissa:Daadab, Fafi, Garissa Township, Hulugho, Ijara, Lagdera, Balambala
+8:Wajir:Eldas, Tarbaj, Wajir East, Wajir North, Wajir South, Wajir West
+9:Mandera:Banissa, Lafey, Mandera East, Mandera North, Mandera South, Mandera West
+10:Marsabit:Laisamis, Moyale, North Hor, Saku
+11:Isiolo:Isiolo, Merti, Garbatulla
+12:Mer:Buuri, Igembe Central, Igembe North, Igembe South, Imenti Central, Imenti North, Imenti South, Tigania East, Tigania West
+13:Tharaka-Nithi:Tharaka North, Tharaka South, Chuka, Igambango’mbe, Maara, Chiakariga and Muthambi
+14:Embu:Manyatta, Mbeere North, Mbeere South, Runyenjes
+15:Kitui:Kitui West, Kitui Central, Kitui Rural, Kitui South, Kitui East, Mwingi North, Mwingi West, Mwingi Central
+16:Machakos:Kathiani, Machakos Town, Masinga, Matungulu, Mavoko, Mwala, Yatta
+17:Makueni:Kaiti, Kibwezi West, Kibwezi East, Kilome, Makueni, Mbooni
+18:Nyandarua:Kinangop, Kipipiri, Ndaragwa, Ol-Kalou, Ol Joro Orok
+19:Nyeri:Kieni East, Kieni West, Mathira East, Mathira West, Mukurweini, Nyeri Town, Othaya, Tetu
+20:Kirinyaga:Kirinyaga Central, Kirinyaga East, Kirinyaga West, Mwea East, Mwea West
+21:Murang’a:Gatanga, Kahuro, Kandara, Kangema, Kigumo, Kiharu, Mathioya, Murang’a South
+22:Kiambu:Gatundu North, Gatundu South, Githunguri, Juja, Kabete, Kiambaa, Kiambu, Kikuyu, Limuru, Ruiru, Thika Town, Lari
+23:Turkana:Loima, Turkana Central, Turkana East, Turkana North, Turkana South
+24:West Pokot:Central Pokot, North Pokot, Pokot South, West Pokot
+25:Samburu:Samburu East, Samburu North, Samburu West
+26:Trans-Nzoia:Cherangany, Endebess, Kiminini, Kwanza, Saboti
+27:Uasin Gishu:Ainabkoi, Kapseret, Kesses, Moiben, Soy, Turbo
+28:Elgeyo-Marakwet:Keiyo North, Keiyo South, Marakwet East, Marakwet West
+29:Nandi:Aldai, Chesumei, Emgwen, Mosop, Nandi Hills, Tindiret
+30:Baringo:Baringo Central, Baringo North, Baringo South, Eldama Ravine, Mogotio, Tiaty
+31:Laikipia:Laikipia Central, Laikipia East, Laikipia North, Laikipia West , Nyahururu
+32:Nakuru:Bahati, Gilgil, Kuresoi North, Kuresoi South, Molo, Naivasha, Nakuru Town East, Nakuru Town West, Njoro, Rongai, Subukia
+33:Narok:Narok East, Narok North, Narok South, Narok West, Transmara East, Transmara West
+34:Kajiado:Isinya, Kajiado Central, Kajiado North, Loitokitok, Mashuuru
+35:Kericho:Ainamoi, Belgut, Bureti, Kipkelion East, Kipkelion West, Soin/Sigowet
+36:Bomet:Bomet Central, Bomet East, Chepalungu, Konoin, Sotik
+37:Kakamega:Butere, Kakamega Central, Kakamega East, Kakamega North, Kakamega South, Khwisero, Lugari, Lukuyani, Lurambi, Matete, Mumias, Mutungu, Navakholo
+38:Vihiga:Emuhaya, Hamisi, Luanda, Sabatia, Vihiga
+39:Bungoma:Bumula, Kabuchai, Kanduyi, Kimilil, Mt Elgon, Sirisia, Tongaren, Webuye East, Webuye West
+40:Busia:Budalangi, Butula, Funyula, Nambele, Teso North, Teso South
+41:Siaya:Alego Usonga, Bondo, Gem, Rarieda, Ugenya, Unguja
+42:Kisumu:Kisumu Central, Kisumu East , Kisumu West, Muhoroni, Nyakach, Nyando, Seme
+43:Homa Bay:Homabay Town, Kabondo, Karachwonyo, Kasipul, Mbita, Ndhiwa, Rangwe, Suba
+44:Migori:Awendo, Kuria East, Kuria West, Mabera, Ntimaru, Rongo, Suna East, Suna West, Uriri
+45:Kisii:Bobasi, Bomachoge Borabu, Bomachoge Chache. Bonchari, Kitutu Chache North, South Mugirango, Kitutu Chache South, Nyaribari Chache, Nyaribari Masaba
+46:Nyamira:Borabu, Manga, Masaba North, Nyamira North, Nyamira South
+47:Nairobi:Dagoretti North, Dagoretti South, Embakasi Central, Embakasi East, Embakasi North, Embakasi South, Embakasi West, Kamukunji, Kasarani, Kibra, Lang’ata, Makadara, Mathare, Roysambu, Ruaraka, Starehe, Westlands
